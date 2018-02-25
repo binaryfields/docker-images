@@ -1,0 +1,7 @@
+[template]
+src = "disque.conf.tmpl"
+dest = "/etc/disque.conf"
+mode = "0644"
+keys = [
+    "/disque"
+]

@@ -1,0 +1,5 @@
+compatibility_level = 2
+{{ if exists "/postfix/myhostname" }}myhostname = {{ getv "/postfix/myhostname" }}{{ end }}
+myorigin = $mydomain
+mydestination =
+inet_interfaces = all

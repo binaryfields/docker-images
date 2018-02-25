@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+set -e -o pipefail
+
+COMMAND=${1}
+shift
+
+start_master() {
+  if [ "$SPARK_MASTER_HOST" = "" ]; then
+    SPARK_MASTER_HOST="$(hostname -i)"
+  fi
+  if [ "$SPARK_MASTER_PORT" = "" ]; then
+    SPARK_MASTER_PORT=7077
+  fi
+  if [ "$SPARK_MASTER_WEBUI_PORT" = "" ]; then
+    SPARK_MASTER_WEBUI_PORT=8080
+  fi
+  spark-class org.apache.spark.deploy.master.Master \
+    --host ${SPARK_MASTER_HOST} \
+    --port ${SPARK_MASTER_PORT} \
+    --webui-port ${SPARK_MASTER_WEBUI_PORT} \
+    "$@"
+}
+
+start_worker() {
+  SPARK_MASTER=${1}
+  shift
+  if [ "$SPARK_MASTER_PORT" = "" ]; then
+    SPARK_MASTER_PORT=7077
+  fi
+  if [ "$SPARK_WORKER_WEBUI_PORT" = "" ]; then
+    SPARK_WORKER_WEBUI_PORT=8080
+  fi
+  while ! nc -z ${SPARK_MASTER} ${SPARK_MASTER_PORT}; do
+    sleep 2;
+  done;
+  SPARK_MASTER_IP="$(getent hosts ${SPARK_MASTER} | awk '{ print $1 }')"
+  spark-class org.apache.spark.deploy.worker.Worker \
+    --webui-port ${SPARK_WORKER_WEBUI_PORT} \
+    spark://${SPARK_MASTER_IP}:${SPARK_MASTER_PORT} \
+    "$@"
+}
+
+case "${COMMAND}" in
+  (master)
+    start_master "$@"
+    ;;
+  (worker)
+    start_worker "$@"
+    ;;
+  (*)
+    echo "Invalid command '${COMMAND}'" >&2
+    exit 1
+    ;;
+esac
