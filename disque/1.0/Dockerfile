@@ -1,4 +1,4 @@
-FROM dsio/base:alpine-3.7
+FROM dsio/base:alpine-3.8
 LABEL maintainer "digitalstreamio@gmail.com"
 
 ENV DAEMON=disque-server \

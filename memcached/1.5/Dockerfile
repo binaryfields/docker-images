@@ -1,8 +1,8 @@
-FROM dsio/base:alpine-3.7
+FROM dsio/base:alpine-3.8
 LABEL maintainer "digitalstreamio@gmail.com"
 
 ENV DAEMON=memcached \
-	MEMCACHED_VERSION=1.5.3-r0
+	MEMCACHED_VERSION=1.5.8-r0
 
 RUN addgroup -S memcache -g 999 && adduser -S -G memcache -u 999 memcache && \
 	apk add --no-cache memcached=${MEMCACHED_VERSION}

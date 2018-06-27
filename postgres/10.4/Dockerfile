@@ -1,12 +1,12 @@
-FROM dsio/base:alpine-3.7
+FROM dsio/base:alpine-3.8
 LABEL maintainer "digitalstreamio@gmail.com"
 
 ENV DAEMON=postgres \
   DAEMON_USER=postgres \
   LANG=en_US.utf8 \
   PGDATA=/var/lib/postgresql/data \
-  PG_MAJOR=10.2 \
-  PG_VERSION=10.2-r0
+  PG_MAJOR=10.4 \
+  PG_VERSION=10.4-r0
 
 # addgroup -S ${DAEMON_USER} -g 999 && adduser -S -G ${DAEMON_USER} -u 999 ${DAEMON_USER} && \
 
