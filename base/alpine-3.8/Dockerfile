@@ -1,9 +1,5 @@
-FROM alpine:3.7
+FROM alpine:3.8
 LABEL maintainer "digitalstreamio@gmail.com"
-
-RUN echo 'http://dl-cdn.alpinelinux.org/alpine/v3.8/main' > /etc/apk/repositories && \
-	echo 'http://dl-cdn.alpinelinux.org/alpine/v3.8/community' >> /etc/apk/repositories && \
-	apk upgrade -U -a
 
 RUN apk add --no-cache netcat-openbsd su-exec && \
 	delgroup ping
@@ -16,7 +12,6 @@ RUN apk add --no-cache --virtual .build-deps git make musl-dev go && \
 	git clone https://github.com/kelseyhightower/confd.git $GOPATH/src/github.com/kelseyhightower/confd && \
 	cd $GOPATH/src/github.com/kelseyhightower/confd && \
 	git checkout v0.16.0 && \
-	cd $GOPATH/src/github.com/kelseyhightower/confd && \
 	cp /tmp/confd-backends-client.go backends/client.go && \
 	go build -ldflags "-s -w" -o bin/confd . && \
 	cp bin/confd /usr/local/bin/ && \
