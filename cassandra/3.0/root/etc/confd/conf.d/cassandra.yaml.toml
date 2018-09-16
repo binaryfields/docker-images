@@ -1,0 +1,7 @@
+[template]
+src = "cassandra.yaml.tmpl"
+dest = "/etc/cassandra/cassandra.yaml"
+mode = "0644"
+keys = [
+    "/cassandra"
+]

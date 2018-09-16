@@ -1,0 +1,7 @@
+[template]
+src = "cassandra-rackdc.properties.tmpl"
+dest = "/etc/cassandra/cassandra-rackdc.properties"
+mode = "0644"
+keys = [
+    "/cassandra"
+]
