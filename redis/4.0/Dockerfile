@@ -4,7 +4,7 @@ LABEL maintainer "digitalstreamio@gmail.com"
 ENV DAEMON=redis-server \
   DAEMON_USER=redis \
   REDIS_DATA_DIR=/var/lib/redis \
-  REDIS_VERSION=4.0.10-r1
+  REDIS_VERSION=4.0.11-r0
 
 RUN addgroup -S ${DAEMON_USER} -g 999 && adduser -S -G ${DAEMON_USER} -u 999 ${DAEMON_USER} && \
   apk add --no-cache redis=${REDIS_VERSION}

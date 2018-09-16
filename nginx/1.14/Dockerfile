@@ -3,7 +3,7 @@ LABEL maintainer "digitalstreamio@gmail.com"
 
 ENV DAEMON=xnginx \
   NGINX_LOG_DIR=/var/log/nginx \
-  NGINX_VERSION=1.14.0-r0
+  NGINX_VERSION=1.14.0-r1
 
 RUN addgroup -S nginx -g 999 && adduser -S -G nginx -u 999 nginx && \
   apk add --no-cache nginx=${NGINX_VERSION} && \
