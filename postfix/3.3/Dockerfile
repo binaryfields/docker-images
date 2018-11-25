@@ -4,7 +4,7 @@ LABEL maintainer "digitalstreamio@gmail.com"
 ENV DAEMON=xpostfix \
   DAEMON_USER=postfix \
   POSTFIX_DATA_DIR=/var/spool/postfix \
-  POSTFIX_VERSION=3.3.0-r3
+  POSTFIX_VERSION=3.3.0-r4
 
 RUN apk add --no-cache supervisor rsyslog postfix=${POSTFIX_VERSION}
 
