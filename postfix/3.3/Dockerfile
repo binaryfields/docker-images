@@ -1,10 +1,10 @@
-FROM dsio/base:alpine-3.8
+FROM dsio/base:alpine-3.9
 LABEL maintainer "digitalstreamio@gmail.com"
 
 ENV DAEMON=xpostfix \
   DAEMON_USER=postfix \
   POSTFIX_DATA_DIR=/var/spool/postfix \
-  POSTFIX_VERSION=3.3.0-r4
+  POSTFIX_VERSION=3.3.2-r0
 
 RUN apk add --no-cache supervisor rsyslog postfix=${POSTFIX_VERSION}
 

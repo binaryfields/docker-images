@@ -7,11 +7,11 @@ ENV DAEMON=elasticsearch \
   ES_HOME=/opt/elasticsearch \
   ES_LOG_DIR=/var/log/elasticsearch \
   ES_PATH_CONF=/etc/elasticsearch \
-  ES_DOWNLOAD=https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.5.1.tar.gz
+  ES_DOWNLOAD=https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.6.1.tar.gz
 
 RUN groupadd -r ${DAEMON_USER} --gid=999 && useradd -r -g ${DAEMON_USER} --uid=999 ${DAEMON_USER} && \
   apt-get update && \
-  apt-get install -y --no-install-recommends curl && \
+  apt-get install -y --no-install-recommends --allow-unauthenticated curl && \
   mkdir -p ${ES_HOME} && \
   curl -o /tmp/elasticsearch.tar.gz -SL ${ES_DOWNLOAD} && \
   tar xf /tmp/elasticsearch.tar.gz -C ${ES_HOME} --no-same-owner --strip 1 && \

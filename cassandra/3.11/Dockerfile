@@ -6,11 +6,11 @@ ENV DAEMON=cassandra \
   CASSANDRA_CONF=/etc/cassandra \
   CASSANDRA_DATA_DIR=/var/lib/cassandra \
   CASSANDRA_HOME=/opt/cassandra \
-  CASSANDRA_DOWNLOAD=http://apache.mirrors.hoobly.com/cassandra/3.11.3/apache-cassandra-3.11.3-bin.tar.gz
+  CASSANDRA_DOWNLOAD=http://apache.mirrors.hoobly.com/cassandra/3.11.4/apache-cassandra-3.11.4-bin.tar.gz
 
 RUN groupadd -r ${DAEMON_USER} --gid=999 && useradd -r -g ${DAEMON_USER} --uid=999 ${DAEMON_USER} && \
   apt-get update && \
-  apt-get install -y --no-install-recommends curl libjemalloc1 libjna-java python && \
+  apt-get install -y --no-install-recommends --allow-unauthenticated curl python && \
   mkdir -p ${CASSANDRA_HOME} && \
   curl -o /tmp/cassandra.tar.gz -SL ${CASSANDRA_DOWNLOAD} && \
   tar xf /tmp/cassandra.tar.gz -C ${CASSANDRA_HOME} --no-same-owner --strip 1 && \
