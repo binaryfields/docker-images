@@ -5,8 +5,8 @@ ENV DAEMON=postgres \
   DAEMON_USER=postgres \
   LANG=en_US.utf8 \
   PGDATA=/var/lib/postgresql/data \
-  PG_MAJOR=11.1 \
-  PG_VERSION=11.1-r0
+  PG_MAJOR=11.2 \
+  PG_VERSION=11.2-r0
 
 # addgroup -S ${DAEMON_USER} -g 999 && adduser -S -G ${DAEMON_USER} -u 999 ${DAEMON_USER} && \
 

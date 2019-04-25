@@ -28,13 +28,13 @@ RUN mkdir -p ${CASSANDRA_CONF} && \
   cp ${CASSANDRA_HOME}/conf/* ${CASSANDRA_CONF} | true && \
   mkdir -p ${CASSANDRA_DATA_DIR} && \
   chown -R ${DAEMON_USER}:${DAEMON_USER} ${CASSANDRA_DATA_DIR}
+
 VOLUME ${CASSANDRA_DATA_DIR}
 WORKDIR ${CASSANDRA_DATA_DIR}
 
 EXPOSE 7000 9042
+#HEALTHCHECK --interval=30s --timeout=10s \
+#  CMD nc -z -v -w5 localhost 9042 || exit 1
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["cassandra", "-f"]
-
-#HEALTHCHECK --interval=30s --timeout=10s \
-#  CMD nc -z -v -w5 localhost 9042 || exit 1

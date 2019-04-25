@@ -14,7 +14,7 @@ declare -a images=(
   postfix
   postgres
   redis
-  spark
+  #spark
 )
 
 build() {

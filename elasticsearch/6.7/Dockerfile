@@ -7,7 +7,7 @@ ENV DAEMON=elasticsearch \
   ES_HOME=/opt/elasticsearch \
   ES_LOG_DIR=/var/log/elasticsearch \
   ES_PATH_CONF=/etc/elasticsearch \
-  ES_DOWNLOAD=https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.6.1.tar.gz
+  ES_DOWNLOAD=https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.7.1.tar.gz
 
 RUN groupadd -r ${DAEMON_USER} --gid=999 && useradd -r -g ${DAEMON_USER} --uid=999 ${DAEMON_USER} && \
   apt-get update && \
@@ -40,9 +40,8 @@ VOLUME ${ES_DATA_DIR}
 WORKDIR ${ES_DATA_DIR}
 
 EXPOSE 9200 9300
+#HEALTHCHECK --interval=30s --timeout=10s \
+#  CMD nc -z -v -w5 localhost 9300 || exit 1
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["elasticsearch"]
-
-#HEALTHCHECK --interval=30s --timeout=10s \
-#  CMD nc -z -v -w5 localhost 9300 || exit 1
