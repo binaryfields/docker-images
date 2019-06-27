@@ -4,7 +4,7 @@ LABEL maintainer "digitalstreamio@gmail.com"
 ENV DAEMON=spark-start \
   DAEMON_USER=spark \
   SPARK_HOME=/opt/spark \
-  SPARK_DOWNLOAD=http://www-us.apache.org/dist/spark/spark-2.4.0/spark-2.4.0-bin-hadoop2.7.tgz \
+  SPARK_DOWNLOAD=http://www-us.apache.org/dist/spark/spark-2.4.3/spark-2.4.3-bin-hadoop2.7.tgz \
   HADOOP_DOWNLOAD=http://apache.cs.utah.edu/hadoop/common/hadoop-2.7.7/hadoop-2.7.7.tar.gz
 
 RUN groupadd -r ${DAEMON_USER} --gid=999 && useradd -r -g ${DAEMON_USER} --uid=999 ${DAEMON_USER} && \

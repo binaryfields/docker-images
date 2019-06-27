@@ -1,9 +1,9 @@
-FROM dsio/base:alpine-3.9
+FROM dsio/base:alpine-3.10
 LABEL maintainer "digitalstreamio@gmail.com"
 
 ENV DAEMON=xnginx \
   NGINX_LOG_DIR=/var/log/nginx \
-  NGINX_VERSION=1.14.2-r0
+  NGINX_VERSION=1.16.0-r2
 
 RUN addgroup -S nginx -g 999 && adduser -S -G nginx -u 999 nginx && \
   apk add --no-cache nginx=${NGINX_VERSION} && \
