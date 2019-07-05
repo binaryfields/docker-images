@@ -1,22 +1,18 @@
-FROM dsio/base:alpine-3.10
+FROM alpine:3.10
 LABEL maintainer "digitalstreamio@gmail.com"
 
-ENV DAEMON=xnginx \
-  NGINX_LOG_DIR=/var/log/nginx \
-  NGINX_VERSION=1.16.0-r2
+RUN delgroup ping && addgroup -S nginx -g 999 && adduser -S -G nginx -u 999 nginx 
 
-RUN addgroup -S nginx -g 999 && adduser -S -G nginx -u 999 nginx && \
-  apk add --no-cache nginx=${NGINX_VERSION} && \
-  ln -sf /dev/stderr ${NGINX_LOG_DIR}/error.log
+ENV NGINX_VERSION=1.16.0-r2
 
-ADD root /
+RUN apk add --no-cache nginx=${NGINX_VERSION} netcat-openbsd tzdata 
 
-VOLUME ${NGINX_LOG_DIR}
-WORKDIR ${NGINX_LOG_DIR}
+RUN set -ex; \
+  ln -sf /dev/stdout /var/log/nginx/access.log; \
+  ln -sf /dev/stderr /var/log/nginx/error.log
 
-EXPOSE 80 443
 HEALTHCHECK --interval=30s --timeout=10s \
   CMD nc -z -v -w5 localhost 80 || exit 1
 
-ENTRYPOINT ["docker-entrypoint.sh"]
+EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

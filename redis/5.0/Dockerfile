@@ -1,24 +1,27 @@
-FROM dsio/base:alpine-3.10
+FROM alpine:3.10
 LABEL maintainer "digitalstreamio@gmail.com"
+
+RUN delgroup ping && addgroup -S redis -g 999 && adduser -S -G redis -u 999 redis 
 
 ENV DAEMON=redis-server \
   DAEMON_USER=redis \
-  REDIS_DATA_DIR=/var/lib/redis \
   REDIS_VERSION=5.0.5-r0
 
-RUN addgroup -S ${DAEMON_USER} -g 999 && adduser -S -G ${DAEMON_USER} -u 999 ${DAEMON_USER} && \
-  apk add --no-cache redis=${REDIS_VERSION}
+RUN apk add --no-cache netcat-openbsd su-exec tzdata 
 
-ADD root /
+RUN apk add --no-cache redis=${REDIS_VERSION}
 
-RUN mkdir -p ${REDIS_DATA_DIR} && \
-  chown -R ${DAEMON_USER}:${DAEMON_USER} ${REDIS_DATA_DIR}
-VOLUME ${REDIS_DATA_DIR}
-WORKDIR ${REDIS_DATA_DIR}
+COPY redis.conf /etc/
 
-EXPOSE 6379
+RUN mkdir -p /data && chown -R redis:redis /data && chown redis:root /etc/redis.conf
+VOLUME /data
+WORKDIR /data
+
+COPY docker-entrypoint.sh /usr/local/bin/
+ENTRYPOINT ["docker-entrypoint.sh"]
+
 HEALTHCHECK --interval=30s --timeout=10s \
   CMD nc -z -v -w5 localhost 6379 || exit 1
 
-ENTRYPOINT ["docker-entrypoint.sh"]
+EXPOSE 6379
 CMD ["redis-server", "/etc/redis.conf"]

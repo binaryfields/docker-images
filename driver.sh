@@ -3,8 +3,6 @@
 set -eu -o pipefail
 
 declare -a images=(
-  base
-  java
   cassandra
   disque
   elasticsearch

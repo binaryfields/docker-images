@@ -1,40 +1,54 @@
-FROM dsio/java:8-stretch
+FROM openjdk:8-jre-slim
 LABEL maintainer "digitalstreamio@gmail.com"
+
+RUN groupadd -r cassandra --gid=999 && useradd -r -g cassandra --uid=999 cassandra 
 
 ENV DAEMON=cassandra \
   DAEMON_USER=cassandra \
-  CASSANDRA_CONF=/etc/cassandra \
-  CASSANDRA_DATA_DIR=/var/lib/cassandra \
+  CASSANDRA_CONF=/opt/cassandra/conf \
   CASSANDRA_HOME=/opt/cassandra \
   CASSANDRA_DOWNLOAD=http://apache.mirrors.hoobly.com/cassandra/3.11.4/apache-cassandra-3.11.4-bin.tar.gz
 
-RUN groupadd -r ${DAEMON_USER} --gid=999 && useradd -r -g ${DAEMON_USER} --uid=999 ${DAEMON_USER} && \
-  apt-get update && \
-  apt-get install -y --no-install-recommends --allow-unauthenticated curl python && \
-  mkdir -p ${CASSANDRA_HOME} && \
-  curl -o /tmp/cassandra.tar.gz -SL ${CASSANDRA_DOWNLOAD} && \
-  tar xf /tmp/cassandra.tar.gz -C ${CASSANDRA_HOME} --no-same-owner --strip 1 && \
-  rm /tmp/cassandra.tar.gz && \
-  ln -s /usr/share/java/jna.jar ${CASSANDRA_HOME}/lib/jna.jar && \
-  rm -r ${CASSANDRA_HOME}/javadoc && \
-  apt-get purge -y --auto-remove curl && \
+RUN set -ex; \
+  apt-get update; \
+  apt-get install -y --no-install-recommends --allow-unauthenticated \
+    curl iproute2 netcat procps python libjemalloc1 libjna-java; \
+  curl -o /usr/local/bin/gosu -fSL "https://github.com/tianon/gosu/releases/download/1.10/gosu-amd64"; \
+  chmod +x /usr/local/bin/gosu; \
+  apt-get purge -y --auto-remove curl; \
+  rm -rf /var/lib/apt/lists/*
+
+RUN set -ex; \
+  apt-get update; \
+  apt-get install -y --no-install-recommends --allow-unauthenticated curl; \
+  mkdir -p ${CASSANDRA_HOME}; \
+  curl -o /tmp/cassandra.tar.gz -SL ${CASSANDRA_DOWNLOAD}; \
+  tar xf /tmp/cassandra.tar.gz -C ${CASSANDRA_HOME} --no-same-owner --strip 1; \
+  rm /tmp/cassandra.tar.gz; \
+  ln -s /usr/share/java/jna.jar ${CASSANDRA_HOME}/lib/jna.jar; \
+  rm -r ${CASSANDRA_HOME}/javadoc; \
+  apt-get purge -y --auto-remove curl; \
   rm -rf /var/lib/apt/lists/*
 
 ENV PATH $PATH:${CASSANDRA_HOME}/bin
 
-ADD root /
+COPY config/logback.xml ${CASSANDRA_HOME}/conf/
 
-RUN mkdir -p ${CASSANDRA_CONF} && \
-  cp ${CASSANDRA_HOME}/conf/* ${CASSANDRA_CONF} | true && \
-  mkdir -p ${CASSANDRA_DATA_DIR} && \
-  chown -R ${DAEMON_USER}:${DAEMON_USER} ${CASSANDRA_DATA_DIR}
+RUN set -ex; \
+  sed -ri "s!^(# )?(data_file_directories:).*!\2 [ /data/data ]!" ${CASSANDRA_CONF}/cassandra.yaml; \
+  sed -ri "s!^(# )?(commitlog_directory:).*!\2 /data/commitlog!" ${CASSANDRA_CONF}/cassandra.yaml; \
+  sed -ri "s!^(# )?(hints_directory:).*!\2 /data/hints_directory!" ${CASSANDRA_CONF}/cassandra.yaml; \
+  sed -ri "s!^(# )?(saved_caches_directory:).*!\2 /data/saved_caches!" ${CASSANDRA_CONF}/cassandra.yaml
 
-VOLUME ${CASSANDRA_DATA_DIR}
-WORKDIR ${CASSANDRA_DATA_DIR}
+RUN mkdir -p /data && chown -R cassandra:cassandra /data 
+VOLUME /data
+WORKDIR /data
 
-EXPOSE 7000 9042
+COPY docker-entrypoint.sh /usr/local/bin/
+ENTRYPOINT ["docker-entrypoint.sh"]
+
 #HEALTHCHECK --interval=30s --timeout=10s \
 #  CMD nc -z -v -w5 localhost 9042 || exit 1
 
-ENTRYPOINT ["docker-entrypoint.sh"]
+EXPOSE 7000 9042
 CMD ["cassandra", "-f"]

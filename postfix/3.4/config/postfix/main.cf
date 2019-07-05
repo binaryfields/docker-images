@@ -1,0 +1,7 @@
+myhostname = 
+
+myorigin = $mydomain
+mydestination =
+
+relayhost =
+inet_interfaces = all
