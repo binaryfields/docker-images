@@ -48,8 +48,5 @@ WORKDIR /var/lib/elasticsearch
 COPY docker-entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["docker-entrypoint.sh"]
 
-#HEALTHCHECK --interval=30s --timeout=10s \
-#  CMD nc -z -v -w5 localhost 9300 || exit 1
-
 EXPOSE 9200 9300
 CMD ["elasticsearch"]

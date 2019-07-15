@@ -1,4 +1,4 @@
-FROM openjdk:8-jre-slim
+FROM openjdk:8-jre-slim-stretch
 LABEL maintainer "digitalstreamio@gmail.com"
 
 RUN groupadd -r cassandra --gid=999 && useradd -r -g cassandra --uid=999 cassandra 
@@ -46,9 +46,6 @@ WORKDIR /data
 
 COPY docker-entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["docker-entrypoint.sh"]
-
-#HEALTHCHECK --interval=30s --timeout=10s \
-#  CMD nc -z -v -w5 localhost 9042 || exit 1
 
 EXPOSE 7000 9042
 CMD ["cassandra", "-f"]

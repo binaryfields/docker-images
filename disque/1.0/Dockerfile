@@ -30,8 +30,5 @@ WORKDIR /data
 COPY docker-entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["docker-entrypoint.sh"]
 
-HEALTHCHECK --interval=30s --timeout=10s \
-  CMD nc -z -v -w5 localhost 7711 || exit 1
-
 EXPOSE 7711
 CMD ["disque-server", "/etc/disque.conf"]

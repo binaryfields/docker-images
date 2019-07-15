@@ -11,8 +11,5 @@ RUN set -ex; \
   ln -sf /dev/stdout /var/log/nginx/access.log; \
   ln -sf /dev/stderr /var/log/nginx/error.log
 
-HEALTHCHECK --interval=30s --timeout=10s \
-  CMD nc -z -v -w5 localhost 80 || exit 1
-
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

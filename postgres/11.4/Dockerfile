@@ -28,8 +28,5 @@ WORKDIR /var/lib/postgresql/data
 COPY docker-entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["docker-entrypoint.sh"]
 
-HEALTHCHECK --interval=30s --timeout=10s \
-  CMD nc -z -v -w5 localhost 5432 || exit 1
-
 EXPOSE 5432
 CMD ["postgres"]

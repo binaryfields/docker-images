@@ -13,9 +13,6 @@ RUN apk add --no-cache memcached=${MEMCACHED_VERSION}
 COPY docker-entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["docker-entrypoint.sh"]
 
-HEALTHCHECK --interval=30s --timeout=10s \
-  CMD nc -z -v -w5 localhost 11211 || exit 1
-
 USER memcache
 EXPOSE 11211
 CMD ["memcached"]
