@@ -1,4 +1,4 @@
-FROM alpine:3.10
+FROM alpine:3.12
 LABEL maintainer "digitalstreamio@gmail.com"
 
 # alpine includes "postgres" user/group in base install
@@ -7,8 +7,8 @@ ENV DAEMON=postgres \
   DAEMON_USER=postgres \
   LANG=en_US.utf8 \
   PGDATA=/var/lib/postgresql/data \
-  PG_MAJOR=11.4 \
-  PG_VERSION=11.4-r0
+  PG_MAJOR=12.3 \
+  PG_VERSION=12.3-r2
 
 RUN apk add --no-cache bash netcat-openbsd su-exec tzdata 
 

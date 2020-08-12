@@ -1,9 +1,9 @@
-FROM alpine:3.10
+FROM alpine:3.12
 LABEL maintainer "digitalstreamio@gmail.com"
 
 ENV DAEMON=xpostfix \
   DAEMON_USER=postfix \
-  POSTFIX_VERSION=3.4.5-r0
+  POSTFIX_VERSION=3.5.6-r0
 
 RUN apk add --no-cache bash netcat-openbsd rsyslog supervisor su-exec
 

@@ -1,4 +1,4 @@
-FROM alpine:3.10
+FROM alpine:3.12
 LABEL maintainer "digitalstreamio@gmail.com"
 
 RUN delgroup ping && addgroup -S disque -g 999 && adduser -S -G disque -u 999 disque

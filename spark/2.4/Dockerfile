@@ -4,7 +4,10 @@ LABEL maintainer "digitalstreamio@gmail.com"
 RUN delgroup ping && addgroup -S spark -g 999 && adduser -S -G spark -u 999 spark 
 
 ENV SPARK_HOME=/opt/spark \
-  SPARK_DOWNLOAD=http://www-us.apache.org/dist/spark/spark-2.4.3/spark-2.4.3-bin-hadoop2.7.tgz \
+  SPARK_LOCAL_DIRS=/data/tmp \
+  SPARK_LOG_DIR=/data/logs \
+  SPARK_WORKER_DIR=/data/work \
+  SPARK_DOWNLOAD=http://www-us.apache.org/dist/spark/spark-2.4.6/spark-2.4.6-bin-hadoop2.7.tgz \
   HADOOP_DOWNLOAD=http://apache.cs.utah.edu/hadoop/common/hadoop-2.7.7/hadoop-2.7.7.tar.gz
 
 RUN set -ex; \
@@ -31,9 +34,9 @@ RUN set -ex; \
 
 ENV PATH $PATH:${SPARK_HOME}/bin
 
-RUN mkdir -p /opt/spark/work
-VOLUME /opt/spark/work
-WORKDIR /opt/spark/work
+RUN mkdir -p /data && chown spark -R /data
+VOLUME /data
+WORKDIR /data
 
 COPY docker-entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["docker-entrypoint.sh"]

@@ -45,7 +45,7 @@ push() {
   cd "${image}"
   for version in *; do
     if [ -d $version ]; then
-      sudo docker push ${repo}/${image}:${version}
+      docker push ${repo}/${image}:${version}
     fi
   done
   popd

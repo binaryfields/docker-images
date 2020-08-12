@@ -7,7 +7,7 @@ ENV DAEMON=cassandra \
   DAEMON_USER=cassandra \
   CASSANDRA_CONF=/opt/cassandra/conf \
   CASSANDRA_HOME=/opt/cassandra \
-  CASSANDRA_DOWNLOAD=http://apache.mirrors.hoobly.com/cassandra/3.11.4/apache-cassandra-3.11.4-bin.tar.gz
+  CASSANDRA_DOWNLOAD=http://apache.mirrors.hoobly.com/cassandra/3.11.7/apache-cassandra-3.11.7-bin.tar.gz
 
 RUN set -ex; \
   apt-get update; \
