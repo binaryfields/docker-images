@@ -7,8 +7,8 @@ ENV DAEMON=postgres \
   DAEMON_USER=postgres \
   LANG=en_US.utf8 \
   PGDATA=/var/lib/postgresql/data \
-  PG_MAJOR=12.3 \
-  PG_VERSION=12.3-r2
+  PG_MAJOR=12.4 \
+  PG_VERSION=12.4-r0
 
 RUN apk add --no-cache bash netcat-openbsd su-exec tzdata 
 

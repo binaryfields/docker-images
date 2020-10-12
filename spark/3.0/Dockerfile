@@ -7,7 +7,7 @@ ENV SPARK_HOME=/opt/spark \
   SPARK_LOCAL_DIRS=/data/tmp \
   SPARK_LOG_DIR=/data/logs \
   SPARK_WORKER_DIR=/data/work \
-  SPARK_DOWNLOAD=http://www-us.apache.org/dist/spark/spark-2.4.6/spark-2.4.6-bin-hadoop2.7.tgz \
+  SPARK_DOWNLOAD=http://www-us.apache.org/dist/spark/spark-3.0.1/spark-3.0.1-bin-hadoop2.7.tgz \
   HADOOP_DOWNLOAD=http://apache.cs.utah.edu/hadoop/common/hadoop-2.7.7/hadoop-2.7.7.tar.gz
 
 RUN set -ex; \

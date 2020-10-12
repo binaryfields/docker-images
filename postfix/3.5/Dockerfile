@@ -3,7 +3,7 @@ LABEL maintainer "digitalstreamio@gmail.com"
 
 ENV DAEMON=xpostfix \
   DAEMON_USER=postfix \
-  POSTFIX_VERSION=3.5.6-r0
+  POSTFIX_VERSION=3.5.7-r0
 
 RUN apk add --no-cache bash netcat-openbsd rsyslog supervisor su-exec
 
