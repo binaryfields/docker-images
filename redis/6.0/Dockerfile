@@ -1,11 +1,11 @@
-FROM alpine:3.12
+FROM alpine:3.13
 LABEL maintainer "digitalstreamio@gmail.com"
 
 RUN delgroup ping && addgroup -S redis -g 999 && adduser -S -G redis -u 999 redis 
 
 ENV DAEMON=redis-server \
   DAEMON_USER=redis \
-  REDIS_VERSION=5.0.9-r0
+  REDIS_VERSION=6.0.10-r0
 
 RUN apk add --no-cache netcat-openbsd su-exec tzdata 
 

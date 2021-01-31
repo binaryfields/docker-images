@@ -1,4 +1,4 @@
-FROM alpine:3.12
+FROM alpine:3.13
 LABEL maintainer "digitalstreamio@gmail.com"
 
 RUN delgroup ping && addgroup -S minio -g 999 && adduser -S -G minio -u 999 minio 
