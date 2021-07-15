@@ -1,4 +1,4 @@
-FROM alpine:3.13
+FROM alpine:3.14
 LABEL maintainer "digitalstreamio@gmail.com"
 
 # alpine includes "postgres" user/group in base install
@@ -7,13 +7,11 @@ ENV DAEMON=postgres \
   DAEMON_USER=postgres \
   LANG=en_US.utf8 \
   PGDATA=/var/lib/postgresql/data \
-  PG_MAJOR=13.1 \
-  PG_VERSION=13.1-r2
-
-RUN apk add --no-cache bash netcat-openbsd su-exec tzdata 
+  PG_MAJOR=13.3 \
+  PG_VERSION=13.3-r0
 
 RUN set -ex; \
-  apk add --no-cache postgresql=${PG_VERSION} postgresql-contrib=${PG_VERSION}; \
+  apk add --no-cache postgresql=${PG_VERSION} postgresql-contrib=${PG_VERSION} bash su-exec tzdata; \
   sed -ri "s!^#?(listen_addresses)\s*=\s*\S+.*!\1 = '*'!" /usr/share/postgresql/postgresql.conf.sample
 
 ENV PATH $PATH:/usr/lib/postgresql/$PG_MAJOR/bin

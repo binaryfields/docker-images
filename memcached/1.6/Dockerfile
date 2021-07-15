@@ -1,12 +1,10 @@
-FROM alpine:3.13
+FROM alpine:3.14
 LABEL maintainer "digitalstreamio@gmail.com"
-
-RUN delgroup ping && addgroup -S memcache -g 999 && adduser -S -G memcache -u 999 memcache 
 
 ENV DAEMON=memcached \
 	MEMCACHED_VERSION=1.6.9-r0
 
-RUN apk add --no-cache netcat-openbsd;
+RUN delgroup ping && addgroup -S memcache -g 999 && adduser -S -G memcache -u 999 memcache 
 
 RUN apk add --no-cache memcached=${MEMCACHED_VERSION} 
 

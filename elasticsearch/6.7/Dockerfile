@@ -1,17 +1,17 @@
 FROM openjdk:8-jre-slim
 LABEL maintainer "digitalstreamio@gmail.com"
 
-RUN groupadd -r elasticsearch --gid=999 && useradd -r -g elasticsearch --uid=999 elasticsearch
-
 ENV DAEMON=elasticsearch \
   DAEMON_USER=elasticsearch \
   ES_HOME=/opt/elasticsearch \
   ES_PATH_CONF=/opt/elasticsearch/config \
   ES_DOWNLOAD=https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.7.1.tar.gz
 
+RUN groupadd -r elasticsearch --gid=999 && useradd -r -g elasticsearch --uid=999 elasticsearch
+
 RUN set -ex; \
   apt-get update; \
-  apt-get install -y --no-install-recommends --allow-unauthenticated curl netcat; \
+  apt-get install -y --no-install-recommends --allow-unauthenticated curl; \
   curl -o /usr/local/bin/gosu -fSL "https://github.com/tianon/gosu/releases/download/1.10/gosu-amd64"; \
   chmod +x /usr/local/bin/gosu; \
   apt-get purge -y --auto-remove curl; \

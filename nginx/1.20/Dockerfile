@@ -1,9 +1,9 @@
-FROM alpine:3.13
+FROM alpine:3.14
 LABEL maintainer "digitalstreamio@gmail.com"
 
-RUN delgroup ping && addgroup -S nginx -g 999 && adduser -S -G nginx -u 999 nginx 
+ENV NGINX_VERSION=1.20.1-r3
 
-ENV NGINX_VERSION=1.18.0-r13
+RUN delgroup ping && addgroup -S nginx -g 999 && adduser -S -G nginx -u 999 nginx
 
 RUN apk add --no-cache nginx=${NGINX_VERSION} netcat-openbsd tzdata 
 

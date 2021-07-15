@@ -1,15 +1,13 @@
-FROM alpine:3.13
+FROM alpine:3.14
 LABEL maintainer "digitalstreamio@gmail.com"
-
-RUN delgroup ping && addgroup -S minio -g 999 && adduser -S -G minio -u 999 minio 
 
 ENV DAEMON=minio \
   DAEMON_USER=minio
 
-RUN apk add --no-cache netcat-openbsd su-exec 
+RUN delgroup ping && addgroup -S minio -g 999 && adduser -S -G minio -u 999 minio 
 
 RUN set -ex; \
-  apk add --no-cache curl; \
+  apk add --no-cache curl su-exec; \
   curl -o /usr/local/bin/minio https://dl.minio.io/server/minio/release/linux-amd64/minio; \
   chmod +x /usr/local/bin/minio; \
   apk del curl

@@ -1,18 +1,18 @@
 FROM openjdk:8-jre-slim-stretch
 LABEL maintainer "digitalstreamio@gmail.com"
 
-RUN groupadd -r cassandra --gid=999 && useradd -r -g cassandra --uid=999 cassandra 
-
 ENV DAEMON=cassandra \
   DAEMON_USER=cassandra \
   CASSANDRA_CONF=/opt/cassandra/conf \
   CASSANDRA_HOME=/opt/cassandra \
-  CASSANDRA_DOWNLOAD=http://apache.mirrors.hoobly.com/cassandra/3.11.9/apache-cassandra-3.11.9-bin.tar.gz
+  CASSANDRA_DOWNLOAD=http://apache.mirrors.hoobly.com/cassandra/3.11.10/apache-cassandra-3.11.10-bin.tar.gz
+
+RUN groupadd -r cassandra --gid=999 && useradd -r -g cassandra --uid=999 cassandra 
 
 RUN set -ex; \
   apt-get update; \
   apt-get install -y --no-install-recommends --allow-unauthenticated \
-    curl iproute2 netcat procps python libjemalloc1 libjna-java; \
+    curl iproute2 procps python libjemalloc1 libjna-java; \
   curl -o /usr/local/bin/gosu -fSL "https://github.com/tianon/gosu/releases/download/1.10/gosu-amd64"; \
   chmod +x /usr/local/bin/gosu; \
   apt-get purge -y --auto-remove curl; \
