@@ -1,8 +1,8 @@
-FROM alpine:3.14
+FROM alpine:3.15
 LABEL maintainer "digitalstreamio@gmail.com"
 
 ENV DAEMON=memcached \
-	MEMCACHED_VERSION=1.6.9-r0
+	MEMCACHED_VERSION=1.6.12-r0
 
 RUN delgroup ping && addgroup -S memcache -g 999 && adduser -S -G memcache -u 999 memcache 
 
