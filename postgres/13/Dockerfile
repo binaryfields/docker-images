@@ -7,8 +7,8 @@ ENV DAEMON=postgres \
   DAEMON_USER=postgres \
   LANG=en_US.utf8 \
   PGDATA=/var/lib/postgresql/data \
-  PG_MAJOR=13.3 \
-  PG_VERSION=13.3-r0
+  PG_MAJOR=13.5 \
+  PG_VERSION=13.5-r0
 
 RUN set -ex; \
   apk add --no-cache postgresql=${PG_VERSION} postgresql-contrib=${PG_VERSION} bash su-exec tzdata; \

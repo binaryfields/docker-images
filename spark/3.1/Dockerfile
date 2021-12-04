@@ -5,7 +5,7 @@ ENV SPARK_HOME=/opt/spark \
   SPARK_LOCAL_DIRS=/data/tmp \
   SPARK_LOG_DIR=/data/logs \
   SPARK_WORKER_DIR=/data/work \
-  SPARK_DOWNLOAD=http://www-us.apache.org/dist/spark/spark-3.1.2/spark-3.1.2-bin-hadoop3.2.tgz \
+  SPARK_DOWNLOAD=https://downloads.apache.org/spark/spark-3.2.0/spark-3.2.0-bin-hadoop3.2.tgz \
   HADOOP_DOWNLOAD=https://archive.apache.org/dist/hadoop/common/hadoop-3.2.2/hadoop-3.2.2.tar.gz \
   HADOOP_VERSION=3.2.2
 

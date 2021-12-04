@@ -5,7 +5,7 @@ ENV DAEMON=cassandra \
   DAEMON_USER=cassandra \
   CASSANDRA_CONF=/opt/cassandra/conf \
   CASSANDRA_HOME=/opt/cassandra \
-  CASSANDRA_DOWNLOAD=http://apache.mirrors.hoobly.com/cassandra/3.11.10/apache-cassandra-3.11.10-bin.tar.gz
+  CASSANDRA_DOWNLOAD=https://downloads.apache.org/cassandra/3.11.11/apache-cassandra-3.11.11-bin.tar.gz
 
 RUN groupadd -r cassandra --gid=999 && useradd -r -g cassandra --uid=999 cassandra 
 
@@ -26,7 +26,6 @@ RUN set -ex; \
   tar xf /tmp/cassandra.tar.gz -C ${CASSANDRA_HOME} --no-same-owner --strip 1; \
   rm /tmp/cassandra.tar.gz; \
   ln -s /usr/share/java/jna.jar ${CASSANDRA_HOME}/lib/jna.jar; \
-  rm -r ${CASSANDRA_HOME}/javadoc; \
   apt-get purge -y --auto-remove curl; \
   rm -rf /var/lib/apt/lists/*
 

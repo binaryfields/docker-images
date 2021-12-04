@@ -3,7 +3,7 @@ LABEL maintainer "digitalstreamio@gmail.com"
 
 ENV DAEMON=redis-server \
   DAEMON_USER=redis \
-  REDIS_VERSION=6.2.4-r0
+  REDIS_VERSION=6.2.6-r0
 
 RUN delgroup ping && addgroup -S redis -g 999 && adduser -S -G redis -u 999 redis 
 

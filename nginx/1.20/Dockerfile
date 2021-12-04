@@ -1,7 +1,7 @@
 FROM alpine:3.14
 LABEL maintainer "digitalstreamio@gmail.com"
 
-ENV NGINX_VERSION=1.20.1-r3
+ENV NGINX_VERSION=1.20.2-r0
 
 RUN delgroup ping && addgroup -S nginx -g 999 && adduser -S -G nginx -u 999 nginx
 
