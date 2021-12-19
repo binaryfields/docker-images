@@ -5,7 +5,7 @@ ENV DAEMON=redis-server \
   DAEMON_USER=redis \
   REDIS_VERSION=6.2.6-r0
 
-RUN delgroup ping && addgroup -S redis -g 999 && adduser -S -G redis -u 999 redis 
+RUN addgroup -S redis -g 1000 && adduser -S -G redis -u 1000 redis 
 
 RUN apk add --no-cache redis=${REDIS_VERSION} su-exec tzdata
 

@@ -3,7 +3,7 @@ LABEL maintainer "digitalstreamio@gmail.com"
 
 ENV NGINX_VERSION=1.20.2-r0
 
-RUN delgroup ping && addgroup -S nginx -g 999 && adduser -S -G nginx -u 999 nginx
+RUN addgroup -S nginx -g 1000 && adduser -S -G nginx -u 1000 nginx
 
 RUN apk add --no-cache nginx=${NGINX_VERSION} netcat-openbsd tzdata 
 

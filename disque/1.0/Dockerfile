@@ -1,7 +1,7 @@
 FROM alpine:3.15
 LABEL maintainer "digitalstreamio@gmail.com"
 
-RUN delgroup ping && addgroup -S disque -g 999 && adduser -S -G disque -u 999 disque
+RUN addgroup -S disque -g 1000 && adduser -S -G disque -u 1000 disque
 
 ENV DAEMON=disque-server \
   DAEMON_USER=disque

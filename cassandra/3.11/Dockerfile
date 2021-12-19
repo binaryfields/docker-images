@@ -7,7 +7,7 @@ ENV DAEMON=cassandra \
   CASSANDRA_HOME=/opt/cassandra \
   CASSANDRA_DOWNLOAD=https://downloads.apache.org/cassandra/3.11.11/apache-cassandra-3.11.11-bin.tar.gz
 
-RUN groupadd -r cassandra --gid=999 && useradd -r -g cassandra --uid=999 cassandra 
+RUN groupadd -r cassandra --gid=1000 && useradd -r -g cassandra --uid=1000 cassandra 
 
 RUN set -ex; \
   apt-get update; \

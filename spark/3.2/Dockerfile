@@ -9,7 +9,7 @@ ENV SPARK_HOME=/opt/spark \
   HADOOP_DOWNLOAD=https://archive.apache.org/dist/hadoop/common/hadoop-3.2.2/hadoop-3.2.2.tar.gz \
   HADOOP_VERSION=3.2.2
 
-RUN groupadd -r spark --gid=999 && useradd -r -g spark --uid=999 spark 
+RUN groupadd -r spark --gid=1000 && useradd -r -g spark --uid=1000 spark 
 
 RUN set -ex; \
   apt-get update; \

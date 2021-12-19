@@ -7,7 +7,7 @@ ENV DAEMON=elasticsearch \
   ES_PATH_CONF=/opt/elasticsearch/config \
   ES_DOWNLOAD=https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.7.1.tar.gz
 
-RUN groupadd -r elasticsearch --gid=999 && useradd -r -g elasticsearch --uid=999 elasticsearch
+RUN groupadd -r elasticsearch --gid=1000 && useradd -r -g elasticsearch --uid=1000 elasticsearch
 
 RUN set -ex; \
   apt-get update; \

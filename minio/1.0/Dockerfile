@@ -4,7 +4,7 @@ LABEL maintainer "digitalstreamio@gmail.com"
 ENV DAEMON=minio \
   DAEMON_USER=minio
 
-RUN delgroup ping && addgroup -S minio -g 999 && adduser -S -G minio -u 999 minio 
+RUN addgroup -S minio -g 1000 && adduser -S -G minio -u 1000 minio 
 
 RUN set -ex; \
   apk add --no-cache curl su-exec; \
